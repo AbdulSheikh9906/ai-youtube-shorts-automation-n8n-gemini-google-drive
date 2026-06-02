@@ -1,84 +1,80 @@
 # 🚀 AI YouTube Shorts Automation with n8n, Gemini AI, Google Drive & YouTube API
 
-![n8n](https://img.shields.io/badge/n8n-Automation-orange)
-![Gemini AI](https://img.shields.io/badge/Gemini-AI-blue)
-![YouTube](https://img.shields.io/badge/YouTube-Shorts-red)
-![Docker](https://img.shields.io/badge/Docker-Containerized-blue)
-![Google Drive](https://img.shields.io/badge/Google%20Drive-Storage-green)
-![License](https://img.shields.io/badge/License-MIT-yellow)
+<p align="center">
+  <img src="workflow.png" alt="AI YouTube Shorts Automation Workflow" width="100%">
+</p>
 
-An end-to-end AI-powered YouTube Shorts automation workflow built with **n8n**, **Google Gemini AI**, **Google Drive**, **Google Sheets**, **Docker**, and **YouTube Data API v3**.
+<p align="center">
+  <img src="https://img.shields.io/badge/n8n-Automation-orange">
+  <img src="https://img.shields.io/badge/Gemini-AI-blue">
+  <img src="https://img.shields.io/badge/YouTube-Shorts-red">
+  <img src="https://img.shields.io/badge/Docker-Containerized-blue">
+  <img src="https://img.shields.io/badge/Google%20Drive-Storage-green">
+  <img src="https://img.shields.io/badge/Status-Production%20Ready-success">
+</p>
 
-This workflow automatically fetches scheduled videos from Google Drive, generates AI-powered captions and hashtags using Gemini AI, uploads videos to YouTube Shorts, updates publishing status in Google Sheets, and archives uploaded videos — all without manual intervention.
-
-Built and tested on a **Dockerized local n8n environment**.
-
----
-
-# 📸 Workflow Preview
-
-> Add your workflow screenshot below
-
-![Workflow](screenshots/workflow.png)
+<p align="center">
+  <b>AI-Powered YouTube Shorts Publishing Pipeline using n8n, Gemini AI, Google Drive, Google Sheets, Docker, and YouTube Data API</b>
+</p>
 
 ---
 
-# 🌟 Features
+## 📖 Overview
 
-✅ Fully Automated YouTube Shorts Publishing
+This project is a fully automated AI-powered content publishing workflow built using **n8n** and deployed locally using **Docker**.
 
-✅ Google Sheets Based Content Calendar
+The automation continuously monitors scheduled content from **Google Sheets**, fetches videos from **Google Drive**, generates AI-powered captions and hashtags using **Google Gemini AI**, uploads videos directly to **YouTube Shorts**, updates publishing status, and archives processed files automatically.
 
-✅ Google Drive Video Storage
+The entire workflow operates without manual intervention, making it ideal for creators, agencies, and teams managing high-volume content publishing.
 
-✅ AI Caption Generation using Gemini AI
+---
 
-✅ AI Hashtag Generation
+## ✨ Features
 
-✅ Automatic YouTube Upload
+✅ Automated YouTube Shorts Upload
 
-✅ Content Scheduling
+✅ AI Generated Captions
 
-✅ Status Tracking in Google Sheets
+✅ AI Generated Hashtags
+
+✅ Google Sheets Content Calendar
+
+✅ Google Drive Integration
+
+✅ YouTube Data API Integration
+
+✅ Automated Status Tracking
 
 ✅ Automatic File Archiving
 
-✅ Docker-Based Deployment
-
-✅ No-Code / Low-Code Workflow
-
 ✅ OAuth 2.0 Authentication
 
-✅ Scalable Content Publishing Pipeline
+✅ Docker-Based Local Deployment
+
+✅ No-Code / Low-Code Automation
+
+✅ Scalable Publishing Workflow
+
+✅ Production-Ready Architecture
 
 ---
 
-# 🎯 Why This Project?
+## 🎯 Problem Solved
 
-Managing multiple YouTube Shorts manually becomes time-consuming.
+Uploading YouTube Shorts manually involves:
 
-This workflow automates the entire publishing pipeline:
+- Managing content schedules
+- Writing captions
+- Generating hashtags
+- Uploading videos
+- Tracking published content
+- Organizing uploaded files
 
-- Schedule videos in Google Sheets
-- Store videos in Google Drive
-- Generate captions using AI
-- Upload automatically to YouTube
-- Track upload status
-- Archive uploaded content
-
-Perfect for:
-
-- Content Creators
-- Faceless YouTube Channels
-- AI Content Channels
-- Social Media Agencies
-- Marketing Teams
-- Automation Enthusiasts
-- Creator Economy Startups
+This workflow automates the complete process from scheduling to publishing.
 
 ---
 
-# 🏗 Workflow Architecture
+## 🏗 Workflow Architecture
 
 ```text
 Schedule Trigger
@@ -88,10 +84,11 @@ Google Sheets
 (Read Scheduled Content)
         │
         ▼
-Check Upload Status
+Check Status
+(Not Uploaded)
         │
         ▼
-Validate Schedule Time
+Schedule Validation
         │
         ▼
 Google Drive Search
@@ -110,105 +107,108 @@ YouTube Upload
 Update Google Sheet
         │
         ▼
-Archive Uploaded Video
+Move Uploaded File
 ```
 
 ---
 
-# ⚙️ Workflow Overview
+## ⚙ Workflow Execution
 
-The workflow follows these steps:
+### 1. Schedule Trigger
 
-### Step 1
+The workflow starts automatically at predefined times.
 
-The Schedule Trigger starts automatically at predefined intervals.
+### 2. Read Content Calendar
 
-### Step 2
+Scheduled videos are fetched from Google Sheets.
 
-Google Sheets is checked for scheduled videos.
+### 3. Validate Upload Status
 
-### Step 3
+Checks whether the video is already uploaded.
 
-The workflow verifies:
+### 4. Match Scheduled Time
 
-- Video is not already uploaded
-- Scheduled time matches current time
+Verifies if the current time matches the scheduled publishing time.
 
-### Step 4
+### 5. Search Video
 
-The video file is searched inside Google Drive.
+Searches the video file inside Google Drive.
 
-### Step 5
+### 6. Download Video
 
-The video is downloaded from Google Drive.
+Downloads the video from Google Drive.
 
-### Step 6
+### 7. AI Content Generation
 
-Gemini AI generates:
+Google Gemini AI generates:
 
 - Caption
 - Hashtags
 
-based on the content outline.
+based on the provided content outline.
 
-### Step 7
+### 8. Upload to YouTube Shorts
 
-The video is uploaded to YouTube Shorts automatically.
+Video is uploaded automatically using the YouTube Data API.
 
-### Step 8
+### 9. Update Publishing Status
 
-Google Sheets status is updated.
+Google Sheets is updated with upload status.
 
-### Step 9
+### 10. Archive Uploaded File
 
-The uploaded file is moved to an archive folder.
+Uploaded videos are automatically moved to an archive folder.
 
 ---
 
-# 🛠 Tech Stack
+## 🛠 Tech Stack
 
 | Technology | Purpose |
 |------------|----------|
 | n8n | Workflow Automation |
 | Docker | Local Deployment |
-| Google Drive API | Video Storage |
-| Google Sheets API | Content Scheduling |
-| YouTube Data API v3 | Video Publishing |
-| Google Gemini AI | AI Caption Generation |
+| Google Sheets API | Scheduling |
+| Google Drive API | File Storage |
+| YouTube Data API v3 | Video Upload |
+| Google Gemini AI | Caption Generation |
 | OAuth 2.0 | Authentication |
 | Google Cloud Platform | API Management |
 
 ---
 
-# 📂 Repository Structure
+## 📂 Repository Structure
 
 ```text
 ai-youtube-shorts-automation-n8n-gemini-google-drive
 │
 ├── README.md
-├── LICENSE
+├── workflow.png
 ├── Drive to youtube upload automation.json
-│
-├── screenshots
-│   └── workflow.png
-│
-└── docs
-    └── architecture.png
 ```
+
+---
+
+## 📸 Workflow Screenshot
+
+The complete workflow architecture:
+
+![Workflow](workflow.png)
 
 ---
 
 # 🔐 Required Credentials
 
-This workflow requires the following credentials.
+This workflow requires four credentials.
+
+---
 
 ## Google Drive OAuth2
 
 Used For:
 
-- Search Video
-- Download Video
-- Move Uploaded File
+- Searching videos
+- Downloading videos
+- Moving uploaded videos
 
 Required Scope:
 
@@ -222,8 +222,8 @@ https://www.googleapis.com/auth/drive
 
 Used For:
 
-- Read Scheduled Content
-- Update Upload Status
+- Reading content schedules
+- Updating upload status
 
 Required Scope:
 
@@ -237,7 +237,7 @@ https://www.googleapis.com/auth/spreadsheets
 
 Used For:
 
-- Upload YouTube Shorts
+- Uploading YouTube Shorts
 
 Required Scopes:
 
@@ -248,12 +248,12 @@ https://www.googleapis.com/auth/youtube.upload
 
 ---
 
-## Gemini API
+## Google Gemini API
 
 Used For:
 
-- Caption Generation
-- Hashtag Generation
+- Caption generation
+- Hashtag generation
 
 Get API Key:
 
@@ -263,19 +263,19 @@ https://aistudio.google.com/
 
 # ☁️ Google Cloud Setup
 
-## Create Project
+## Step 1: Create Project
 
-Go to:
+Visit:
 
 https://console.cloud.google.com/
 
-Create a new Google Cloud Project.
+Create a new project.
 
 ---
 
-## Enable APIs
+## Step 2: Enable APIs
 
-Enable:
+Enable the following APIs:
 
 - Google Drive API
 - Google Sheets API
@@ -283,16 +283,16 @@ Enable:
 
 ---
 
-## Configure OAuth Consent Screen
+## Step 3: Configure OAuth Consent Screen
 
 1. Open OAuth Consent Screen
 2. Select External
-3. Add App Information
-4. Add Yourself as Test User
+3. Enter application details
+4. Add yourself as a Test User
 
 ---
 
-## Create OAuth Credentials
+## Step 4: Create OAuth Credentials
 
 Create:
 
@@ -314,46 +314,15 @@ http://localhost:5678/rest/oauth2-credential/callback
 
 ---
 
-# 📊 Google Sheet Structure
+# 🐳 Running n8n Locally Using Docker
 
-Create a sheet with the following columns:
+This workflow was developed and tested on a local Docker-based n8n environment.
 
-| File Name | Outline | Schedule Time | Status |
-|------------|----------|---------------|---------|
-| video1.mp4 | Funny Story | 2026-06-10 09:00 | Pending |
-| video2.mp4 | Motivation | 2026-06-10 18:00 | Pending |
-
----
-
-# 📁 Google Drive Structure
-
-```text
-Google Drive
-│
-├── Scheduled Videos
-│   ├── video1.mp4
-│   ├── video2.mp4
-│   └── video3.mp4
-│
-└── Uploaded Videos
-    ├── video1.mp4
-    ├── video2.mp4
-    └── video3.mp4
-```
-
----
-
-# 🐳 Running n8n Locally with Docker
-
-This project was developed and tested on a local Docker-based n8n setup.
-
-## Pull n8n Docker Image
+## Pull n8n Image
 
 ```bash
 docker pull n8nio/n8n
 ```
-
----
 
 ## Run n8n Container
 
@@ -364,12 +333,37 @@ docker run -it --rm \
 n8nio/n8n
 ```
 
----
-
 ## Open n8n
 
 ```text
 http://localhost:5678
+```
+
+---
+
+# 📊 Google Sheet Format
+
+Create a Google Sheet with the following structure:
+
+| File Name | Outline | Schedule Time | Status |
+|------------|----------|---------------|---------|
+| video1.mp4 | AI News | 2026-06-01 09:00 | Pending |
+| video2.mp4 | Motivation | 2026-06-01 18:00 | Pending |
+
+---
+
+# 📁 Google Drive Folder Structure
+
+```text
+Google Drive
+│
+├── Scheduled Videos
+│   ├── video1.mp4
+│   ├── video2.mp4
+│
+└── Uploaded Videos
+    ├── video1.mp4
+    ├── video2.mp4
 ```
 
 ---
@@ -379,7 +373,7 @@ http://localhost:5678
 ## Clone Repository
 
 ```bash
-git clone https://github.com/yourusername/ai-youtube-shorts-automation-n8n-gemini-google-drive.git
+git clone https://github.com/YOUR_USERNAME/ai-youtube-shorts-automation-n8n-gemini-google-drive.git
 ```
 
 ---
@@ -392,101 +386,117 @@ Import:
 Drive to youtube upload automation.json
 ```
 
-into your n8n instance.
+into n8n.
 
 ---
 
 ## Configure Credentials
 
-Create the following credentials inside n8n:
+Create the following credentials:
 
 - Google Drive OAuth2
 - Google Sheets OAuth2
 - YouTube OAuth2
-- Gemini API
+- Google Gemini API
 
 ---
 
-## Update Resource IDs
+## Update IDs
 
-Replace the following with your own values:
+Replace:
 
 - Google Sheet ID
-- Source Google Drive Folder ID
-- Archive Google Drive Folder ID
+- Source Folder ID
+- Archive Folder ID
+
+with your own values.
 
 ---
 
 ## Activate Workflow
 
-Turn workflow status to:
+Set workflow status to:
 
 ```text
 Active
 ```
 
-The workflow will now run automatically based on the configured schedule.
+The automation will start running automatically.
 
 ---
 
-# 💼 Resume / Portfolio Highlights
+# 💼 Resume Highlights
 
-- Designed and developed an AI-powered content publishing automation pipeline.
-- Integrated Google Drive, Google Sheets, Gemini AI, and YouTube APIs.
-- Implemented OAuth 2.0 authentication across multiple Google services.
-- Automated video scheduling, caption generation, uploading, and tracking.
-- Built and tested in a Dockerized local n8n environment.
-- Reduced manual content publishing effort by more than 90%.
+This project demonstrates:
+
+- Workflow Automation
+- AI Integration
+- API Integration
+- OAuth Authentication
+- Google Cloud Services
+- Docker Deployment
+- Content Automation
+- Low-Code Development
+- Production Workflow Design
 
 ---
 
 # 🚀 Future Improvements
 
-- Instagram Reels Publishing
-- Facebook Reels Publishing
+- Instagram Reels Upload
+- Facebook Reels Upload
+- TikTok Upload
 - LinkedIn Video Publishing
-- TikTok Automation
 - AI Thumbnail Generation
 - AI Title Generation
 - Telegram Notifications
 - Slack Notifications
 - Analytics Dashboard
-- Multi-Channel Support
 - Multi-Language Captions
-- SEO Score Optimization
-
----
-
-# 🔍 Keywords
-
-AI Automation, YouTube Shorts Automation, n8n Workflow, Gemini AI, Google Drive Automation, Google Sheets Automation, YouTube API, Content Automation, Social Media Automation, Creator Tools, AI Content Pipeline, Docker Automation, No-Code Automation, Low-Code Workflow, Automated Video Publishing.
+- Multi-Platform Publishing
 
 ---
 
 # 📈 Use Cases
 
-- Content Creators
-- YouTube Shorts Channels
-- Faceless YouTube Automation
-- AI Generated Content
-- Social Media Agencies
-- Marketing Teams
-- Startup Growth Teams
-- Creator Economy Businesses
+### Content Creators
+
+Automate YouTube Shorts publishing.
+
+### Faceless YouTube Channels
+
+Publish content automatically without manual uploads.
+
+### Marketing Agencies
+
+Manage large-scale content publishing.
+
+### Social Media Teams
+
+Automate repetitive publishing workflows.
+
+### AI Content Businesses
+
+Scale content operations efficiently.
+
+---
+
+# 🔍 SEO Keywords
+
+AI Automation, YouTube Shorts Automation, n8n Workflow, Google Gemini AI, YouTube API, Google Drive Automation, Google Sheets Automation, Docker Automation, Content Automation, Social Media Automation, AI Content Pipeline, Creator Tools, No-Code Automation, Low-Code Workflow, Automated Video Publishing.
 
 ---
 
 # 👨‍💻 Author
 
-### Abdul Shamshuddin Sheikh
+## Abdul Shamshuddin Sheikh
 
 B.Tech Computer Science (Artificial Intelligence)
 
 Vishwakarma Institute of Technology (VIT), Pune
 
-LinkedIn: Add Your LinkedIn Profile
-
-GitHub: Add Your GitHub Profile
+- GitHub: https://github.com/AbdulSheikh9906
+- LinkedIn: Add Your LinkedIn Profile
 
 ---
 
@@ -494,13 +504,11 @@ GitHub: Add Your GitHub Profile
 
 If you found this project useful:
 
-⭐ Star this repository
+⭐ Star the repository
 
-🍴 Fork this repository
+🍴 Fork the repository
 
-📢 Share it with other automation enthusiasts
-
-Contributions, suggestions, and improvements are always welcome.
+📢 Share it with fellow developers and creators
 
 ---
 
@@ -509,3 +517,29 @@ Contributions, suggestions, and improvements are always welcome.
 This project is licensed under the MIT License.
 
 Feel free to use, modify, and distribute this project.
+
+---
+
+## 🔥 GitHub Topics
+
+```text
+n8n
+youtube-shorts
+youtube-automation
+youtube-api
+gemini-ai
+google-gemini
+google-drive
+google-sheets
+workflow-automation
+content-automation
+social-media-automation
+ai-automation
+artificial-intelligence
+docker
+nocode
+lowcode
+automation
+creator-tools
+youtube-content
+```
