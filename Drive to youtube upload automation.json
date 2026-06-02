@@ -1,0 +1,542 @@
+{
+  "name": "Drive to youtube upload automation",
+  "nodes": [
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 1
+          },
+          "conditions": [
+            {
+              "id": "a0b143f5-3f85-48a1-85ba-7083ec6e22af",
+              "leftValue": "",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "b1004e28-c4b4-4906-90e1-9dbf7c0a62c9",
+      "name": "Check Posted1",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        864,
+        208
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "string": [
+            {
+              "value1": "={{$now.format('yyyy-MM-dd HH:mm')}}",
+              "operation": "equal",
+              "value2": "={{$json[\"Schedule Time\"]}}"
+            }
+          ],
+          "combinator": "and",
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 1
+          }
+        },
+        "options": {}
+      },
+      "id": "1af81827-90c8-40cb-b2bf-feedf57913de",
+      "name": "Schedule Match1",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        1104,
+        192
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "fileFolder",
+        "queryString": "={{$json[\"File name\"]}}",
+        "limit": 1,
+        "filter": {
+          "folderId": {
+            "__rl": true,
+            "value": "1rtyhQnrgn7bDDP1-bkHS5xjXgS-crMqZ",
+            "mode": "id"
+          }
+        },
+        "options": {}
+      },
+      "id": "34d45218-72aa-4156-987d-c9b3e7badbb6",
+      "name": "Find Video1",
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        1184,
+        448
+      ],
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "cWT0q0jAlKQL0ZzZ",
+          "name": "Google Drive account 3"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "download",
+        "fileId": {
+          "__rl": true,
+          "value": "={{$json[\"id\"]}}",
+          "mode": "id"
+        },
+        "options": {}
+      },
+      "id": "ac3e2a40-6880-4e91-a2fd-6f18a05b0ad1",
+      "name": "Download Video1",
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        1408,
+        448
+      ],
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "cWT0q0jAlKQL0ZzZ",
+          "name": "Google Drive account 3"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "video",
+        "operation": "upload",
+        "title": "=={{$binary.data.fileName.replace('.mp4','')}}",
+        "regionCode": "IN",
+        "categoryId": "23",
+        "options": {
+          "description": "=😂 Funny Stickman Comedy Story\n\n#shorts #funny #stickman #viral #comedy",
+          "notifySubscribers": true,
+          "privacyStatus": "public",
+          "selfDeclaredMadeForKids": false,
+          "tags": "shorts,comedy,stickman,funny,viral"
+        }
+      },
+      "id": "df2f0b5f-dd45-414e-ab48-bc1719bfdc00",
+      "name": "Upload Video1",
+      "type": "n8n-nodes-base.youTube",
+      "typeVersion": 1,
+      "position": [
+        1904,
+        224
+      ],
+      "credentials": {
+        "youTubeOAuth2Api": {
+          "id": "ovSLyDnGcjphHgsq",
+          "name": "YouTube account 5"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "move",
+        "fileId": {
+          "__rl": true,
+          "value": "={{$node[\"Find Video1\"].json[\"id\"]}}",
+          "mode": "id"
+        },
+        "driveId": {
+          "__rl": true,
+          "mode": "list",
+          "value": "My Drive"
+        },
+        "folderId": {
+          "__rl": true,
+          "value": "1-KOUyBeaS-at3BajaAM-jp-pQZCDa8lP",
+          "mode": "id"
+        }
+      },
+      "id": "5fac8855-cfd0-475c-8bd8-38369e9627bd",
+      "name": "Move Uploaded File1",
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        2464,
+        320
+      ],
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "cWT0q0jAlKQL0ZzZ",
+          "name": "Google Drive account 3"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "triggerAtHour": 9
+            },
+            {
+              "triggerAtHour": 18,
+              "triggerAtMinute": 10
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        608,
+        368
+      ],
+      "id": "e74e33a8-9c3d-4ccb-a811-ec5319f45df3",
+      "name": "Schedule Trigger3"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1CUVxlgRqWMb5C7NyMCkdsc6PqpUKvNQPUnSjlGN2-w0",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1CUVxlgRqWMb5C7NyMCkdsc6PqpUKvNQPUnSjlGN2-w0/edit#gid=0"
+        },
+        "filtersUI": {
+          "values": [
+            {
+              "lookupColumn": "Status"
+            }
+          ]
+        },
+        "options": {
+          "returnFirstMatch": true
+        }
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        880,
+        368
+      ],
+      "id": "75484d15-7a67-4b31-94c3-bb456cd51135",
+      "name": "Get row(s) in sheet3",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "DkNarxy05BfKFjzg",
+          "name": "Google Sheets account 3"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Video Topic: {{ $json.Outline }}",
+        "options": {
+          "systemMessage": "=You are a social media expert who writes engaging and SEO optimized instagram captions.\ncreate a short and catchy caption for the given video topic.\nMake sure the tone sounds natural and appealing to the audience.\nAdd two highly relevant hashtags at the end that fit the topic."
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2.2,
+      "position": [
+        1424,
+        224
+      ],
+      "id": "9178b3b4-a2c3-4658-9869-7136b7840a52",
+      "name": "AI Agent3"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        1696,
+        480
+      ],
+      "id": "2c7cd622-8e41-47da-9a24-1de4c5c0290e",
+      "name": "Google Gemini Chat Model2",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "S2sWe9vnWWsX1LXE",
+          "name": "Google Gemini(PaLM) Api account 3"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "1CUVxlgRqWMb5C7NyMCkdsc6PqpUKvNQPUnSjlGN2-w0",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1CUVxlgRqWMb5C7NyMCkdsc6PqpUKvNQPUnSjlGN2-w0/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "row_number": "={{ $('Get row(s) in sheet3').item.json.row_number }}",
+            "Staus": "Posted"
+          },
+          "matchingColumns": [
+            "row_number"
+          ],
+          "schema": [
+            {
+              "id": "File name",
+              "displayName": "File name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Outline",
+              "displayName": "Outline",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Staus",
+              "displayName": "Staus",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "row_number",
+              "displayName": "row_number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "readOnly": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        2048,
+        480
+      ],
+      "id": "4ea01734-234a-41d8-86d2-b03725b6b257",
+      "name": "Update row in sheet3",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "DkNarxy05BfKFjzg",
+          "name": "Google Sheets account 3"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "7b78b974-b07f-4a25-9a6b-ca3fd2c0f1a4",
+              "name": "fileName",
+              "value": "={{$node[\"Download Video1\"].binary.data.fileName}}",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        2144,
+        224
+      ],
+      "id": "0146a965-e498-4ec1-b47f-4f1334ab0b40",
+      "name": "Edit Fields1"
+    },
+    {
+      "parameters": {
+        "content": "## This is working wala\n**Double click** to edit me. [Guide](https://docs.n8n.io/workflows/sticky-notes/)"
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        96,
+        192
+      ],
+      "typeVersion": 1,
+      "id": "d4223938-0cd7-415e-a514-3e8c17704a47",
+      "name": "Sticky Note"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Check Posted1": {
+      "main": [
+        [
+          {
+            "node": "Schedule Match1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Schedule Match1": {
+      "main": [
+        [
+          {
+            "node": "Find Video1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Find Video1": {
+      "main": [
+        [
+          {
+            "node": "Download Video1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Download Video1": {
+      "main": [
+        [
+          {
+            "node": "AI Agent3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Upload Video1": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Schedule Trigger3": {
+      "main": [
+        [
+          {
+            "node": "Get row(s) in sheet3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get row(s) in sheet3": {
+      "main": [
+        [
+          {
+            "node": "Check Posted1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent3": {
+      "main": [
+        [
+          {
+            "node": "Upload Video1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model2": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent3",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update row in sheet3": {
+      "main": [
+        [
+          {
+            "node": "Move Uploaded File1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields1": {
+      "main": [
+        [
+          {
+            "node": "Update row in sheet3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "57fa9649-f1a1-436f-97c6-717eaaad8023",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "d2e4ce7e695a8ec7268457900d2e31011a8bbac769807a0cbc72f6fe0466f387"
+  },
+  "id": "hFveK8yxLhAnPb0n",
+  "tags": []
+}
